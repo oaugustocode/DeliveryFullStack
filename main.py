@@ -12,7 +12,7 @@ app = FastAPI()
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
-## para rodar o codigo sempre usar uvicorn:main --reload
+## para rodar o codigo sempre usar uvicorn main:app --reload
 
 from auth_routes import auth_router
 from order_routes import order_router
