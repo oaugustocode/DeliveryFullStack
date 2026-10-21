@@ -9,3 +9,16 @@ class UsuarioSchema(BaseModel):
     admin: Optional[bool]
     class Config:
         from_atributtes = True
+
+class PedidoSchema(BaseModel):
+    usuario: int 
+
+    class Config:
+        from_atributtes = True
+
+class LoginSchema(BaseModel):
+    email: str
+    senha: str 
+
+    class Config:
+        from_atributtes = True 
