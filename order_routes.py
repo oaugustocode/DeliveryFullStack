@@ -12,7 +12,7 @@ async def getPedidos():
 
 @order_router.post("/pedido")
 async def criar_pedido(pedido_schema: PedidoSchema, session: Session = Depends(pegar_sessao)):
-    """Rota de Criação do pedido, por enquanto recebe id do usuario e retorna uma mensagem de sucesso"""
+    """Rota de Criação do pedido, por enquanto recebe id do usuario e retorna uma mensagem de sucesso."""
 
     novo_pedido = Pedido(usuario=pedido_schema.usuario)
     usuario = session.query(Usuario).filter(Usuario.id == pedido_schema.usuario).first()

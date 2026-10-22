@@ -56,7 +56,7 @@ async def login(login_schema:LoginSchema,session: Session = Depends(pegar_sessao
 
     usuario = autenticar_usuario(login_schema.email, login_schema.senha, session)
     if not usuario:
-        raise HTTPException(status_code=400, detail="Usuario nao encontrado ou credenciais invalidas")
+        raise HTTPException(status_code=400, detail="Usuario nao encontrado ou credenciais invalidas...")
     else:
         access_token = criar_token(usuario.id)
         refresh_token = criar_token(usuario.id, duracao_token=timedelta(days=7))
