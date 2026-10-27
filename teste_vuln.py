@@ -9,9 +9,12 @@ engine = create_engine("sqlite:///teste.db")
 
 @app.get("/buscar")
 def buscar(nome: str):
-    # VULNERAVEL: SQL injection (entrada do usuario dentro da query)
+    # Seguro: usa parâmetro bindado para evitar SQL injection
     with engine.connect() as conn:
-        resultado = conn.execute(text(f"SELECT * FROM usuarios WHERE nome = '{nome}'"))
+        resultado = conn.execute(
+            text("SELECT * FROM usuarios WHERE nome = :nome"),
+            {"nome": nome},
+        )
         return [dict(r._mapping) for r in resultado]
 
 
