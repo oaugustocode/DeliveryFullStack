@@ -43,7 +43,7 @@ carrinho → POST /pedidos (preço calculado no servidor) → Stripe Checkout
 
 ## Fase 1: Fundação de qualidade
 
-- [ ] Reorganizar em pastas: `routers/`, `models/`, `schemas/`
+- [x] Reorganizar em pastas: `routers/`, `models/`, `schemas/`
 - [x] Alembic: primeira migração e uma mudança de model aplicada por ela
 - [ ] `.env.example` no repositório (`SECRET_KEY`, `ALGORITHM`, `ACCESS_TOKEN_EXPIRE_MINUTES`), `.env` no `.gitignore`
 - [ ] Remover o token hardcoded de `testes.py` do repositório e trocar o `SECRET_KEY`

@@ -42,10 +42,16 @@ API REST desenvolvida com **FastAPI** para cadastro de usuários e gerenciamento
 ```
 FastAPI/
 ├── main.py               # Ponto de entrada: cria a aplicação e registra os routers
-├── auth_routes.py        # Rotas de autenticação (prefixo /auth)
-├── order_routes.py       # Rotas de pedidos (prefixo /order)
-├── models.py             # Engine do banco e modelos ORM (Usuario, Pedido, ItemPedido)
-├── schemas.py            # Schemas Pydantic para validação das requisições
+├── routers/
+│   ├── auth_routes.py    # Rotas de autenticação (prefixo /auth)
+│   └── order_routes.py   # Rotas de pedidos (prefixo /pedidos)
+├── models/
+│   ├── base.py           # Engine do banco e Base declarativa
+│   ├── usuario.py        # Modelo Usuario
+│   └── pedido.py         # Modelos Pedido e ItemPedido
+├── schemas/
+│   ├── usuario.py        # Schemas de usuário e login
+│   └── pedido.py         # Schemas de pedido e itens
 ├── dependencies.py       # Dependências do FastAPI (pegar_sessao)
 ├── alembic.ini           # Configuração do Alembic
 ├── alembic/
@@ -67,9 +73,9 @@ FastAPI/
 
 A arquitetura separa responsabilidades em módulos:
 
-- **Rotas**: cada domínio tem seu próprio `APIRouter` (`auth_routes.py`, `order_routes.py`), registrado em `main.py`.
-- **Modelos**: `models.py` concentra a conexão com o banco e as classes ORM.
-- **Validação**: `schemas.py` define o formato esperado do corpo das requisições.
+- **Rotas**: cada domínio tem seu próprio `APIRouter` em `routers/`, registrado em `main.py`.
+- **Modelos**: o pacote `models/` guarda a conexão com o banco e as classes ORM, reexportadas em `models/__init__.py`.
+- **Validação**: o pacote `schemas/` define o formato esperado do corpo das requisições.
 - **Dependências**: `dependencies.py` fornece a sessão do banco para as rotas, que é fechada ao final de cada requisição.
 
 ## Modelo de dados
@@ -222,7 +228,7 @@ Após a inicialização, os seguintes endereços ficam disponíveis:
 
 ## Migrações com Alembic
 
-Sempre que os modelos em `models.py` forem alterados, gere e aplique uma nova migração:
+Sempre que os modelos em `models/` forem alterados, gere e aplique uma nova migração:
 
 ```bash
 alembic revision --autogenerate -m "descricao da mudanca"   # gera uma migração a partir dos modelos

@@ -1,41 +1,8 @@
 from datetime import date, datetime
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Date,
-    Float,
-    ForeignKey,
-    Integer,
-    String,
-    Time,
-    create_engine,
-)
-from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy_utils.types import ChoiceType
+from sqlalchemy import Column, Date, Float, ForeignKey, Integer, String, Time
+from sqlalchemy.orm import relationship
 
-# cria conexao banco
-db = create_engine("sqlite:///database/banco.db")
-
-# base do banco
-Base = declarative_base()
-
-
-class Usuario(Base):
-  __tablename__ = "usuarios"
-
-  id = Column("id", Integer, primary_key=True, autoincrement=True)
-  nome = Column("nome", String)
-  email = Column("email", String, nullable=False)
-  senha = Column("senha", String)
-  ativo = Column("ativo", Boolean)
-  admin = Column("admin", Boolean, default=False)
-
-  def __init__(self, nome, email, senha, ativo=True, admin=False):
-    self.nome = nome
-    self.email = email
-    self.senha = senha
-    self.ativo = ativo
-    self.admin = admin
+from models.base import Base
 
 
 class Pedido(Base):
@@ -84,7 +51,3 @@ class ItemPedido(Base):
     self.tamanho = tamanho
     self.preco_unitario = preco_unitario
     self.pedido = pedido
-
-
-# Para efetivamente gerar as tabelas no arquivo SQLite:
-# Base.metadata.create_all(bind=db)
